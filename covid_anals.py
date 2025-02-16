@@ -3,20 +3,17 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
+from typing import List
 
-# Load the dataset
-file_path = "country_wise_latest.csv"  # Replace with actual path
+file_path = "country_wise_latest.csv"  
 data = pd.read_csv(file_path)
 
-# Display dataset information
 print("Dataset Information:\n")
 print(data.info())
 
-# Handling missing values
 print("\nMissing values before handling:")
 print(data.isnull().sum())
 
-# Filling missing values with mean or zero (based on column type)
 data.fillna(data.mean(numeric_only=True), inplace=True)
 
 print("\nMissing values after handling:")
@@ -30,7 +27,6 @@ print(data.describe())
 # VISUALIZATIONS & ANALYSIS #
 # ========================= #
 
-# 1. Top 10 Countries with the Most Confirmed Cases
 top_confirmed = data.nlargest(10, 'Confirmed')
 plt.figure(figsize=(12, 6))
 sns.barplot(x="Country/Region", y="Confirmed", data=top_confirmed, palette="coolwarm")
@@ -40,7 +36,6 @@ plt.xlabel("Country")
 plt.ylabel("Number of Confirmed Cases")
 plt.show()
 
-# 2. Top 10 Countries with the Most Deaths
 top_deaths = data.nlargest(10, 'Deaths')
 plt.figure(figsize=(12, 6))
 sns.barplot(x="Country/Region", y="Deaths", data=top_deaths, palette="Reds")
@@ -50,7 +45,6 @@ plt.xlabel("Country")
 plt.ylabel("Number of Deaths")
 plt.show()
 
-# 3. Correlation Matrix Heatmap
 plt.figure(figsize=(10, 6))
 sns.heatmap(data.corr(numeric_only=True), annot=True, cmap="coolwarm", fmt=".2f")
 plt.title("Correlation Heatmap of COVID-19 Data")
@@ -100,4 +94,4 @@ plt.xlabel("Country")
 plt.ylabel("Fatality Rate (%)")
 plt.show()
 
-print("\nAnalysis Completed! 📊✅")
+print("\nAnalysis Completed! ")
